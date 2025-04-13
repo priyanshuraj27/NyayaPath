@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/aichat/aichatscreen.dart';
 import 'package:frontend/components/splash.dart';
 import 'package:frontend/profile/demoprofile.dart';
+import 'package:frontend/resource/resourcehome.dart';
 // import 'package:frontend/components/home_screen.dart';
 // import 'package:frontend/track_cases/trackCases.dart';
 
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
       title: 'My Splash App',
       debugShowCheckedModeBanner: false,
       // home : SplashScreen(), // Start with SplashScreen
-      home : DemoProfileLauncher()
+      home : ResourceHomePage()
     );
   }
 }
