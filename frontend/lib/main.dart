@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/legalaid/chatscreen.dart';
-import 'package:frontend/legalaid/layerscreen.dart';
-import 'package:frontend/legalaid/legalaidhome.dart';
-import 'package:frontend/track_cases/trackcase.dart';
+import 'package:frontend/components/splash.dart';
 // import 'package:frontend/components/home_screen.dart';
 // import 'package:frontend/track_cases/trackCases.dart';
 
@@ -21,7 +18,7 @@ class MyApp extends StatelessWidget {
       title: 'My Splash App',
       debugShowCheckedModeBanner: false,
       // home: HomeScreen() // Start with SplashScreen
-      home : LawyerClientChatScreen(),
+      home : SplashScreen(),
     );
   }
 }

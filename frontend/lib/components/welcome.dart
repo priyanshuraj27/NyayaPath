@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/auth/login.dart';
 
 void main() {
   runApp(
@@ -31,10 +32,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   void _nextPage() {
     if (_currentIndex < imagePaths.length - 1) {
       _pageController.nextPage(
-          duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
+        duration: Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
     } else {
       // Login action here
-      print("Login Clicked!");
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => LoginScreen()),
+      );
     }
   }
 
@@ -108,7 +114,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 30),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 25.0,
+                vertical: 30,
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -116,7 +125,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     onPressed: _nextPage,
                     style: OutlinedButton.styleFrom(
                       side: BorderSide(color: Colors.black),
-                      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 30,
+                        vertical: 15,
+                      ),
                     ),
                     child: Text(
                       _currentIndex == imagePaths.length - 1 ? 'Login' : 'Next',
@@ -125,11 +137,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      print("Skip Clicked!");
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => LoginScreen()),
+                        );
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.indigo[900],
-                      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 30,
+                        vertical: 15,
+                      ),
                     ),
                     child: Text('Skip', style: TextStyle(color: Colors.white)),
                   ),

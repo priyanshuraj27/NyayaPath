@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/legalaid/chatscreen.dart';
 
 class LawyerListScreen extends StatefulWidget {
   final String location;
@@ -120,7 +121,14 @@ class _LawyerListScreenState extends State<LawyerListScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           OutlinedButton.icon(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const LawyerClientChatScreen(),
+                                ),
+                              );
+                            },
                             icon: const Icon(
                               Icons.chat_bubble_outline,
                               color: Colors.white,
@@ -137,7 +145,9 @@ class _LawyerListScreenState extends State<LawyerListScreen> {
                             ),
                           ),
                           ElevatedButton.icon(
-                            onPressed: () {},
+                            onPressed: () {
+                              // Implement legal counsel action
+                            },
                             icon: const Icon(Icons.gavel),
                             label: const Text('Seek Legal Counsel'),
                             style: ElevatedButton.styleFrom(

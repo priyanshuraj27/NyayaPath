@@ -9,6 +9,12 @@ class LawyerClientChatScreen extends StatelessWidget {
       backgroundColor: const Color(0xFF101336),
       appBar: AppBar(
         backgroundColor: const Color(0xFF101336),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         title: const Text(
           'Chat with Lawyer',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
@@ -19,9 +25,10 @@ class LawyerClientChatScreen extends StatelessWidget {
             onPressed: () {
               // Handle video call action here
             },
-          )
+          ),
         ],
       ),
+
       body: Column(
         children: [
           // Chat area
@@ -35,7 +42,8 @@ class LawyerClientChatScreen extends StatelessWidget {
                 ),
                 _ChatBubble(
                   isMe: true,
-                  message: 'I need help understanding a court notice I received.',
+                  message:
+                      'I need help understanding a court notice I received.',
                 ),
               ],
             ),
@@ -59,8 +67,10 @@ class LawyerClientChatScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20),
                         borderSide: BorderSide.none,
                       ),
-                      contentPadding:
-                          const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 0,
+                      ),
                     ),
                   ),
                 ),
@@ -98,10 +108,7 @@ class _ChatBubble extends StatelessWidget {
           color: isMe ? const Color(0xFF00B9F1) : const Color(0xFF2C3A8C),
           borderRadius: BorderRadius.circular(16),
         ),
-        child: Text(
-          message,
-          style: const TextStyle(color: Colors.white),
-        ),
+        child: Text(message, style: const TextStyle(color: Colors.white)),
       ),
     );
   }

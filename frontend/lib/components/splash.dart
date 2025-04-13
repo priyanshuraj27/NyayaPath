@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/components/welcome.dart';
 import 'package:video_player/video_player.dart';
-import 'home_screen.dart';
+// import 'home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -23,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
       if (_controller.value.position == _controller.value.duration) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => HomeScreen()),
+          MaterialPageRoute(builder: (context) => OnboardingScreen()),
         );
       }
     });
