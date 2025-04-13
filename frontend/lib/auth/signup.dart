@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/components/home_screen.dart';
 import 'package:frontend/components/welcome.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -104,7 +105,7 @@ class SignUpScreen extends StatelessWidget {
                   TextField(
                     style: const TextStyle(color: Colors.white),
                     decoration: InputDecoration(
-                      labelText: "Confirm Password",
+                      labelText: "Role",
                       labelStyle: const TextStyle(color: Color(0xFFC3C6D1)),
                       filled: true,
                       fillColor: const Color(0xFF2C3A8C),
@@ -113,7 +114,7 @@ class SignUpScreen extends StatelessWidget {
                         borderSide: BorderSide.none,
                       ),
                     ),
-                    obscureText: true,
+                    obscureText: false,
                   ),
                   const SizedBox(height: 30),
 
@@ -131,7 +132,7 @@ class SignUpScreen extends StatelessWidget {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => OnboardingScreen()),
+                          MaterialPageRoute(builder: (context) => HomeScreen()),
                         );
                       },
                       child: const Text(

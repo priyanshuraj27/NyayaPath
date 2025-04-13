@@ -73,7 +73,7 @@ class HomeScreen extends StatelessWidget {
                   _buildGridItem(
                     context,
                     iconText: 'Chat icon',
-                    label: 'Chat with Legal Assistant',
+                    label: 'Chat with Legal AI Assistant',
                     destination: LoginScreen(),
                   ),
                   _buildGridItem(
