@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/track_cases/trackcase.dart';
 
 class TrackCourtCasesScreen extends StatefulWidget {
   const TrackCourtCasesScreen({super.key});
@@ -33,6 +34,10 @@ class _TrackCourtCasesScreenState extends State<TrackCourtCasesScreen>
   }
 
   void _performSearch() {
+     Navigator.push(
+    context,
+    MaterialPageRoute(builder: (_) => CaseStatusScreen()),
+    );
     setState(() {
       _hasSearched = true;
     });
@@ -83,20 +88,15 @@ class _TrackCourtCasesScreenState extends State<TrackCourtCasesScreen>
         _dropdown('Select Year'),
         const SizedBox(height: 20),
         _searchButton(),
-
-        if (_hasSearched) ...[
-          const SizedBox(height: 30),
+        const SizedBox(height: 30),
           _sectionTitle('Recent Searches'),
           _recentSearchesList(),
-
           const SizedBox(height: 30),
           _sectionTitle('Need Help?'),
           _helpCard(),
-
           const SizedBox(height: 30),
-          _sectionTitle('Multilingual Support'),
-          _languagePicker(),
-        ],
+          _sectionTitle('Subscribe to Case Updates'),
+          _subscribeCard(),
       ],
     );
   }
@@ -111,17 +111,13 @@ class _TrackCourtCasesScreenState extends State<TrackCourtCasesScreen>
         _dropdown('Select Court'),
         const SizedBox(height: 20),
         _searchButton(),
-
-        if (_hasSearched) ...[
+          const SizedBox(height: 30),
+          _sectionTitle('Need Help?'),
+          _helpCard(),
           const SizedBox(height: 30),
           _sectionTitle('Subscribe to Case Updates'),
           _subscribeCard(),
-
-          const SizedBox(height: 30),
-          _sectionTitle('Case Progress'),
-          _caseProgressStepper(),
         ],
-      ],
     );
   }
 
@@ -197,18 +193,19 @@ class _TrackCourtCasesScreenState extends State<TrackCourtCasesScreen>
   }
 
   Widget _searchButton() {
-    return ElevatedButton.icon(
-      onPressed: _performSearch,
-      icon: const Icon(Icons.search),
-      label: const Text('Search Case'),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: const Color(0xFF00B9F1),
-        foregroundColor: Colors.white,
-        minimumSize: const Size(double.infinity, 50),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      ),
-    );
-  }
+  return ElevatedButton.icon(
+    onPressed: _performSearch,
+    icon: const Icon(Icons.search),
+    label: const Text('Search Case'),
+    style: ElevatedButton.styleFrom(
+      backgroundColor: const Color(0xFF00B9F1),
+      foregroundColor: Colors.white,
+      minimumSize: const Size(double.infinity, 50),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+    ),
+  );
+}
+
 
   Widget _sectionTitle(String text) {
     return Text(

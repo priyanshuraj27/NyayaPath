@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/legalaid/lawyerscreen.dart';
 
 class LegalAidScreen extends StatefulWidget {
   const LegalAidScreen({super.key});
@@ -46,10 +47,7 @@ class _LegalAidScreenState extends State<LegalAidScreen>
             fontSize: 15, // Increased font size
             fontWeight: FontWeight.w600,
           ),
-          tabs: const [
-            Tab(text: 'Get Help'),
-            Tab(text: 'Resources'),
-          ],
+          tabs: const [Tab(text: 'Get Help'), Tab(text: 'Resources')],
         ),
       ),
       body: TabBarView(
@@ -159,7 +157,18 @@ class _LegalAidScreenState extends State<LegalAidScreen>
           style: TextStyle(color: Colors.white60),
         ),
         trailing: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder:
+                    (context) => LawyerListScreen(
+                      location: 'YourLocation',
+                      issue: 'YourIssue',
+                    ),
+              ),
+            );
+          },
           child: const Text('Find'),
         ),
       ),
@@ -180,10 +189,7 @@ class _LegalAidScreenState extends State<LegalAidScreen>
           '1800-123-4567 (24x7 support)',
           style: TextStyle(color: Colors.white60),
         ),
-        trailing: ElevatedButton(
-          onPressed: () {},
-          child: const Text('Call'),
-        ),
+        trailing: ElevatedButton(onPressed: () {}, child: const Text('Call')),
       ),
     );
   }
@@ -202,10 +208,7 @@ class _LegalAidScreenState extends State<LegalAidScreen>
           'Submit your application to get support.',
           style: TextStyle(color: Colors.white60),
         ),
-        trailing: ElevatedButton(
-          onPressed: () {},
-          child: const Text('Apply'),
-        ),
+        trailing: ElevatedButton(onPressed: () {}, child: const Text('Apply')),
       ),
     );
   }

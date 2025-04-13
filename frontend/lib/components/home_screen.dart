@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/auth/login.dart';
+import 'package:frontend/legalaid/legalaidhome.dart';
+import 'package:frontend/track_cases/trackhome.dart';
+
+// Dummy screen imports — replace with actual implementations
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -6,7 +11,6 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Top AppBar
       appBar: AppBar(
         backgroundColor: const Color(0xFF101336),
         centerTitle: true,
@@ -28,9 +32,7 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-
       backgroundColor: const Color(0xFF101336),
-
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -59,7 +61,7 @@ class HomeScreen extends StatelessWidget {
 
               const SizedBox(height: 20),
 
-              // Grid Menu
+              // Grid Menu with Navigation
               GridView.count(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
@@ -68,16 +70,36 @@ class HomeScreen extends StatelessWidget {
                 mainAxisSpacing: 12,
                 childAspectRatio: 1,
                 children: [
-                  _buildGridItem('Chat icon', 'Chat with Legal Assistant'),
-                  _buildGridItem('Legal doc', 'Simplify Legal Document'),
-                  _buildGridItem('Court icon', 'Track Court Case'),
-                  _buildGridItem('Aid icon', 'Find Legal Aid'),
+                  _buildGridItem(
+                    context,
+                    iconText: 'Chat icon',
+                    label: 'Chat with Legal Assistant',
+                    destination: LoginScreen(),
+                  ),
+                  _buildGridItem(
+                    context,
+                    iconText: 'Legal doc',
+                    label: 'Simplify Legal Document',
+                    destination:  LoginScreen(),
+                  ),
+                  _buildGridItem(
+                    context,
+                    iconText: 'Court icon',
+                    label: 'Track Court Case',
+                    destination: TrackCourtCasesScreen(),
+                  ),
+                  _buildGridItem(
+                    context,
+                    iconText: 'Aid icon',
+                    label: 'Find Legal Aid',
+                    destination: LegalAidScreen(),
+                  ),
                 ],
               ),
 
               const SizedBox(height: 30),
 
-              // Recent Activity Section
+              // Recent Activity
               const Text(
                 'Recent Activity',
                 style: TextStyle(
@@ -87,25 +109,15 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 12),
-
-              _buildRecentItem(
-                Icons.gavel,
-                'Court hearing scheduled',
-                'Case ID: 12345',
-              ),
+              _buildRecentItem(Icons.gavel, 'Court hearing scheduled', 'Case ID: 12345'),
               const SizedBox(height: 10),
-
-              _buildRecentItem(
-                Icons.description,
-                'Legal document updated',
-                'Document Name: Contract agreement',
-              ),
+              _buildRecentItem(Icons.description, 'Legal document updated', 'Document Name: Contract agreement'),
             ],
           ),
         ),
       ),
 
-      // Bottom Navigation Bar
+      // Bottom Nav
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: const Color(0xFF101336),
@@ -121,61 +133,67 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  // Grid Item Builder
-  Widget _buildGridItem(String iconText, String label) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          // Top icon or placeholder
-          Padding(
-            padding: const EdgeInsets.only(top: 16.0),
-            child: Text(
-              iconText,
-              style: const TextStyle(
-                color: Colors.black,
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
+  // Grid Item with navigation
+  Widget _buildGridItem(BuildContext context, {
+    required String iconText,
+    required String label,
+    required Widget destination,
+  }) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => destination),
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 16.0),
+              child: Text(
+                iconText,
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
-          ),
-
-          // Bottom label
-          Container(
-            width: double.infinity,
-            decoration: const BoxDecoration(
-              color: Color(0xFF2C3A8C),
-              borderRadius: BorderRadius.vertical(bottom: Radius.circular(12)),
-            ),
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
-            child: Text(
-              label,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
-                fontSize: 14,
+            Container(
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                color: Color(0xFF2C3A8C),
+                borderRadius: BorderRadius.vertical(bottom: Radius.circular(12)),
+              ),
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+              child: Text(
+                label,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 14,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
-  // Recent Activity Item
+  // Recent Item UI
   Widget _buildRecentItem(IconData icon, String title, String subtitle) {
     return ListTile(
       leading: Icon(icon, color: const Color(0xFF00B9F1)),
       title: Text(title, style: const TextStyle(color: Colors.white)),
-      subtitle: Text(
-        subtitle,
-        style: const TextStyle(color: Color(0xFFC3C6D1)),
-      ),
+      subtitle: Text(subtitle, style: const TextStyle(color: Color(0xFFC3C6D1))),
     );
   }
 }

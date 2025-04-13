@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/components/home_screen.dart';
 import 'package:frontend/components/welcome.dart';
 import 'signup.dart';
 
@@ -140,7 +141,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => OnboardingScreen()),
+                          MaterialPageRoute(builder: (context) => HomeScreen()),
                         );
                       },
                       child: const Text(
