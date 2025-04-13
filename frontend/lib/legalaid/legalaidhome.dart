@@ -40,6 +40,12 @@ class _LegalAidScreenState extends State<LegalAidScreen>
         bottom: TabBar(
           controller: _tabController,
           indicatorColor: Colors.white,
+          labelColor: Colors.white,
+          unselectedLabelColor: Colors.white70,
+          labelStyle: const TextStyle(
+            fontSize: 15, // Increased font size
+            fontWeight: FontWeight.w600,
+          ),
           tabs: const [
             Tab(text: 'Get Help'),
             Tab(text: 'Resources'),
