@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/components/welcome.dart';
 
 void main() {
   runApp(LanguageSelectorApp());
@@ -56,15 +57,15 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
   }
 
   void onContinue() {
-    if (selectedLanguageCode != null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Selected: $selectedLanguageCode')),
-      );
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Please select a language')),
-      );
+     if(selectedLanguageCode == null) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Please select a language')));
     }
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => OnboardingScreen()),
+    );
   }
 
   @override
@@ -101,18 +102,22 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
                   return GestureDetector(
                     onTap: () => onLanguageSelected(lang['code']!),
                     child: Container(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+                      padding: EdgeInsets.symmetric(
+                        vertical: 14,
+                        horizontal: 16,
+                      ),
                       margin: EdgeInsets.only(bottom: 8),
                       decoration: BoxDecoration(
-                        color: isSelected
-                            ? Colors.white.withOpacity(0.1)
-                            : Colors.transparent,
+                        color:
+                            isSelected
+                                ? Colors.white.withOpacity(0.1)
+                                : Colors.transparent,
                         borderRadius: BorderRadius.circular(8),
                         border: Border.all(
-                          color: isSelected
-                              ? Colors.lightBlueAccent
-                              : Colors.white24,
+                          color:
+                              isSelected
+                                  ? Colors.lightBlueAccent
+                                  : Colors.white24,
                         ),
                       ),
                       child: Text(

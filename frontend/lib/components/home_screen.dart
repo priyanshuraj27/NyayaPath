@@ -59,107 +59,113 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       backgroundColor: const Color(0xFF101336),
-      body: _selectedIndex == 0
-          ? SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Full-width Search Bar with centered text
-                    Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: TextField(
-                        textAlign: TextAlign.center,
-                        decoration: InputDecoration(
-                          hintText: 'Search for legal information',
-                          hintStyle: const TextStyle(color: Colors.grey),
-                          suffixIcon: IconButton(
-                            icon: const Icon(Icons.search),
-                            onPressed: () {},
+      body:
+          _selectedIndex == 0
+              ? SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Full-width Search Bar with centered text
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: TextField(
+                          textAlign: TextAlign.center,
+                          decoration: InputDecoration(
+                            hintText: 'Search for legal information',
+                            hintStyle: const TextStyle(color: Colors.grey),
+                            suffixIcon: IconButton(
+                              icon: const Icon(Icons.search),
+                              onPressed: () {},
+                            ),
+                            border: InputBorder.none,
                           ),
-                          border: InputBorder.none,
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 20),
+                      const SizedBox(height: 20),
 
-                    // Grid Menu with Individual Images
-                    GridView.count(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 12,
-                      mainAxisSpacing: 12,
-                      childAspectRatio: 1,
-                      children: [
-                        _buildGridItem(
-                          context,
-                          imagePath: 'assets/images/chat_assistanticon.jpeg',
-                          label: 'Chat with Legal AI Assistant',
-                          destination: App(),
-                        ),
-                        _buildGridItem(
-                          context,
-                          imagePath:
-                              'assets/images/simplyfylegaldocumenticon.jpeg',
-                          label: 'Simplify Legal Document',
-                          destination: ChatScreen(),
-                        ),
-                        _buildGridItem(
-                          context,
-                          imagePath: 'assets/images/trackcaseicon.jpg',
-                          label: 'Track Court Case',
-                          destination: TrackCourtCasesScreen(),
-                          padding: const EdgeInsets.all(12.0), // 1 point smaller
-                        ),
-                        _buildGridItem(
-                          context,
-                          imagePath: 'assets/images/findLegalAidIcon.jpg',
-                          label: 'Find Legal Aid',
-                          destination: LegalAidScreen(),
-                          padding: const EdgeInsets.all(20.0), // 2 points smaller
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 30),
-
-                    // Recent Activity
-                    const Text(
-                      'Recent Activity',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                      // Grid Menu with Individual Images
+                      GridView.count(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 12,
+                        mainAxisSpacing: 12,
+                        childAspectRatio: 1,
+                        children: [
+                          _buildGridItem(
+                            context,
+                            imagePath: 'assets/images/chat_assistanticon.jpeg',
+                            label: 'Chat with Legal AI Assistant',
+                            destination: App(),
+                          ),
+                          _buildGridItem(
+                            context,
+                            imagePath:
+                                'assets/images/simplyfylegaldocumenticon.jpeg',
+                            label: 'Simplify Legal Document',
+                            destination: ChatScreen(),
+                            padding: const EdgeInsets.all(20.0),
+                          ),
+                          _buildGridItem(
+                            context,
+                            imagePath: 'assets/images/trackcaseicon.jpg',
+                            label: 'Track Court Case',
+                            destination: TrackCourtCasesScreen(),
+                            padding: const EdgeInsets.all(
+                              12.0,
+                            ), // 1 point smaller
+                          ),
+                          _buildGridItem(
+                            context,
+                            imagePath: 'assets/images/findLegalAidIcon.jpg',
+                            label: 'Find Legal Aid',
+                            destination: LegalAidScreen(),
+                            padding: const EdgeInsets.all(
+                              20.0,
+                            ), // 2 points smaller
+                          ),
+                        ],
                       ),
-                    ),
-                    const SizedBox(height: 12),
-                    _buildRecentItem(
-                      Icons.gavel,
-                      'Court hearing scheduled',
-                      'Case ID: 12345',
-                    ),
-                    const SizedBox(height: 10),
-                    _buildRecentItem(
-                      Icons.description,
-                      'Legal document updated',
-                      'Document Name: Contract agreement',
-                    ),
-                  ],
+                      const SizedBox(height: 30),
+
+                      // Recent Activity
+                      const Text(
+                        'Recent Activity',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      _buildRecentItem(
+                        Icons.gavel,
+                        'Court hearing scheduled',
+                        'Case ID: 12345',
+                      ),
+                      const SizedBox(height: 10),
+                      _buildRecentItem(
+                        Icons.description,
+                        'Legal document updated',
+                        'Document Name: Contract agreement',
+                      ),
+                    ],
+                  ),
+                ),
+              )
+              : const Center(
+                child: Text(
+                  'Other tab selected',
+                  style: TextStyle(color: Colors.white),
                 ),
               ),
-            )
-          : const Center(
-              child: Text(
-                'Other tab selected',
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: const Color(0xFF101336),

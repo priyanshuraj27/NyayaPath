@@ -14,7 +14,7 @@ class _ChatScreenState extends State<ChatScreen> {
   bool _isLoading = false;
 
   final Dio _dio = Dio();
-  final String _apiUrl = "http://192.168.105.100:8000/summarize/";
+  final String _apiUrl = "http://192.168.77.84:8000/summarize/";
 
   Future<void> _sendMessage() async {
     final text = _messageController.text.trim();
@@ -63,7 +63,7 @@ class _ChatScreenState extends State<ChatScreen> {
           onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
-          'NyayBandhu',
+          'NyayaBandhu',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: Colors.white,
@@ -131,7 +131,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     controller: _messageController,
                     style: const TextStyle(color: Colors.white),
                     decoration: InputDecoration(
-                      hintText: "Type your legal query...",
+                      hintText: "Enter Document Data",
                       hintStyle: const TextStyle(color: Color(0xFFC3C6D1)),
                       filled: true,
                       fillColor: const Color(0xFF101336),
