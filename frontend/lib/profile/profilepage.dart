@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/auth/login.dart';
 import 'package:frontend/models/user.dart';
-
+import 'package:frontend/services/auth_service.dart';
 class ProfilePage extends StatelessWidget {
   final User user;
 
@@ -75,8 +76,43 @@ class ProfilePage extends StatelessWidget {
               icon: Icons.logout,
               label: 'Logout',
               color: Colors.redAccent,
-              onTap: () {
-                // Confirm and perform logout
+              onTap: () async {
+                final confirmed = await showDialog(
+                  context: context,
+                  builder:
+                      (context) => AlertDialog(
+                        title: const Text("Confirm Logout"),
+                        content: const Text("Are you sure you want to logout?"),
+                        actions: [
+                          TextButton(
+                            child: const Text("Cancel"),
+                            onPressed: () => Navigator.pop(context, false),
+                          ),
+                          ElevatedButton(
+                            child: const Text("Logout"),
+                            onPressed: () => Navigator.pop(context, true),
+                          ),
+                        ],
+                      ),
+                );
+
+                if (confirmed == true) {
+                  try {
+                    await AuthService()
+                        .logout(); // Use your Dio-based logout method
+
+                    // Clear local session data if needed (e.g., tokens in shared_preferences)
+
+                    Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (context) => LoginScreen()),
+                      (route) => false,
+                    );
+                  } catch (e) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("Logout failed: $e")),
+                    );
+                  }
+                }
               },
             ),
           ],
@@ -96,9 +132,10 @@ class ProfilePage extends StatelessWidget {
         CircleAvatar(
           radius: 60,
           backgroundColor: accentColor.withOpacity(0.15),
-          backgroundImage: user.avatarUrl.startsWith('http')
-              ? NetworkImage(user.avatarUrl)
-              : AssetImage(user.avatarUrl) as ImageProvider,
+          backgroundImage:
+              user.avatarUrl.startsWith('http')
+                  ? NetworkImage(user.avatarUrl)
+                  : AssetImage(user.avatarUrl) as ImageProvider,
         ),
         const SizedBox(height: 20),
         Text(
@@ -112,10 +149,7 @@ class ProfilePage extends StatelessWidget {
         const SizedBox(height: 8),
         Text(
           user.email,
-          style: TextStyle(
-            fontSize: 16,
-            color: textColor.withOpacity(0.6),
-          ),
+          style: TextStyle(fontSize: 16, color: textColor.withOpacity(0.6)),
         ),
         const SizedBox(height: 12),
         Chip(
@@ -140,9 +174,7 @@ class ProfilePage extends StatelessWidget {
       color: Colors.white,
       elevation: 2,
       margin: const EdgeInsets.symmetric(vertical: 6),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(14),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
       child: ListTile(
         leading: Icon(icon, color: color),
         title: Text(

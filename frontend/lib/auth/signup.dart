@@ -1,8 +1,72 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/components/home_screen.dart';
-import 'package:frontend/components/welcome.dart';
+import 'package:frontend/components/home_screen.dart'; // Import HomeScreen
+import 'package:frontend/services/auth_service.dart'; // Import AuthService
 
-class SignUpScreen extends StatelessWidget {
+class SignUpScreen extends StatefulWidget {
+  @override
+  _SignUpScreenState createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
+  // Text editing controllers for capturing input values
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _roleController = TextEditingController();
+
+  bool _isLoading = false; // For loading state to disable button during request
+  final AuthService _authService = AuthService(); // AuthService instance
+
+  // Function to handle the sign-up
+  void _signup() async {
+    setState(() {
+      _isLoading = true; // Show loading spinner
+    });
+
+    // print("Sign-up initiated");
+
+    try {
+      // Debugging: Print input data
+      // print("Username: ${_usernameController.text}");
+      // print("Email: ${_emailController.text}");
+      // print("Password: ${_passwordController.text}");
+
+      var response = await _authService.signup(
+        _usernameController.text,
+        _passwordController.text,
+        _emailController.text,
+      );
+
+      // Debugging: Print response data
+      // print("Signup Response: $response");
+
+      // Show success and navigate to HomeScreen
+      if (response != null) {
+        // print("Signup Success: $response");
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HomeScreen()),
+        );
+      } else {
+        // print("Signup failed: Response is null");
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Signup failed: Response is null')),
+        );
+      }
+    } catch (e) {
+      print("Signup Error: $e");
+      // Show error message if the signup fails
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Signup failed: $e')),
+      );
+    } finally {
+      setState(() {
+        _isLoading = false; // Stop the loading spinner
+      });
+      // print("Sign-up process completed");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,9 +95,7 @@ class SignUpScreen extends StatelessWidget {
                 ),
               ),
             ),
-
             const SizedBox(height: 30),
-
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: Column(
@@ -51,11 +113,12 @@ class SignUpScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 30),
 
-                  // Name Field
+                  // Username Field
                   TextField(
+                    controller: _usernameController,
                     style: const TextStyle(color: Colors.white),
                     decoration: InputDecoration(
-                      labelText: "Name",
+                      labelText: "Username",
                       labelStyle: const TextStyle(color: Color(0xFFC3C6D1)),
                       filled: true,
                       fillColor: const Color(0xFF2C3A8C),
@@ -69,6 +132,7 @@ class SignUpScreen extends StatelessWidget {
 
                   // Email Field
                   TextField(
+                    controller: _emailController,
                     style: const TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                       labelText: "Email",
@@ -86,6 +150,7 @@ class SignUpScreen extends StatelessWidget {
 
                   // Password Field
                   TextField(
+                    controller: _passwordController,
                     style: const TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                       labelText: "Password",
@@ -101,8 +166,9 @@ class SignUpScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
 
-                  // Confirm Password Field
+                  // Role Field (optional field for role)
                   TextField(
+                    controller: _roleController,
                     style: const TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                       labelText: "Role",
@@ -129,25 +195,22 @@ class SignUpScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(15),
                         ),
                       ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => HomeScreen()),
-                        );
-                      },
-                      child: const Text(
-                        "Sign Up",
-                        style: TextStyle(color: Colors.white, fontSize: 18),
-                      ),
+                      onPressed: _isLoading ? null : _signup,  // Disable button during loading
+                      child: _isLoading
+                          ? CircularProgressIndicator() // Show loader while loading
+                          : const Text(
+                              "Sign Up",
+                              style: TextStyle(color: Colors.white, fontSize: 18),
+                            ),
                     ),
                   ),
-
                   const SizedBox(height: 20),
 
+                  // Login Link
                   Center(
                     child: TextButton(
                       onPressed: () {
-                        Navigator.pop(context);
+                        Navigator.pop(context); // Go back to the login screen
                       },
                       child: const Text(
                         "Already have an account? Login",

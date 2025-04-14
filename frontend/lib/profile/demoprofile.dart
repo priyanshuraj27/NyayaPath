@@ -4,29 +4,28 @@ import 'profilepage.dart';
 
 class DemoProfileLauncher extends StatelessWidget {
   final User demoUser = User(
-    name: 'Priya Sharma',
-    email: 'priya@example.com',
+    name: 'Priyanshu Raj',
+    email: 'priyanshu125@gmail.com',
     avatarUrl: 'https://i.pravatar.cc/300',
     role: 'Advocate',
   );
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Demo Launcher")),
-      body: Center(
-        child: ElevatedButton(
-          child: Text("Go to Profile"),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ProfilePage(user: demoUser),
-              ),
-            );
-          },
+    // Immediately push to profile page
+    Future.microtask(() {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (_) => ProfilePage(user: demoUser),
         ),
-      ),
+      );
+    });
+
+    // Return an empty scaffold while redirecting
+    return const Scaffold(
+      backgroundColor: Colors.transparent,
+      body: SizedBox.shrink(), // Empty view
     );
   }
 }

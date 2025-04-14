@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/auth/login.dart';
 import 'package:frontend/legalaid/legalaidhome.dart';
+import 'package:frontend/profile/demoprofile.dart';
 import 'package:frontend/track_cases/trackhome.dart';
 
 // Dummy screen imports — replace with actual implementations
@@ -28,7 +29,12 @@ class HomeScreen extends StatelessWidget {
               Icons.account_circle_outlined,
               color: Colors.white,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) =>  DemoProfileLauncher()),
+              );
+            },
           ),
         ],
       ),
@@ -80,7 +86,7 @@ class HomeScreen extends StatelessWidget {
                     context,
                     iconText: 'Legal doc',
                     label: 'Simplify Legal Document',
-                    destination:  LoginScreen(),
+                    destination: LoginScreen(),
                   ),
                   _buildGridItem(
                     context,
@@ -109,9 +115,17 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 12),
-              _buildRecentItem(Icons.gavel, 'Court hearing scheduled', 'Case ID: 12345'),
+              _buildRecentItem(
+                Icons.gavel,
+                'Court hearing scheduled',
+                'Case ID: 12345',
+              ),
               const SizedBox(height: 10),
-              _buildRecentItem(Icons.description, 'Legal document updated', 'Document Name: Contract agreement'),
+              _buildRecentItem(
+                Icons.description,
+                'Legal document updated',
+                'Document Name: Contract agreement',
+              ),
             ],
           ),
         ),
@@ -134,17 +148,15 @@ class HomeScreen extends StatelessWidget {
   }
 
   // Grid Item with navigation
-  Widget _buildGridItem(BuildContext context, {
+  Widget _buildGridItem(
+    BuildContext context, {
     required String iconText,
     required String label,
     required Widget destination,
   }) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (_) => destination),
-        );
+        Navigator.push(context, MaterialPageRoute(builder: (_) => destination));
       },
       child: Container(
         decoration: BoxDecoration(
@@ -169,7 +181,9 @@ class HomeScreen extends StatelessWidget {
               width: double.infinity,
               decoration: const BoxDecoration(
                 color: Color(0xFF2C3A8C),
-                borderRadius: BorderRadius.vertical(bottom: Radius.circular(12)),
+                borderRadius: BorderRadius.vertical(
+                  bottom: Radius.circular(12),
+                ),
               ),
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
               child: Text(
@@ -193,7 +207,10 @@ class HomeScreen extends StatelessWidget {
     return ListTile(
       leading: Icon(icon, color: const Color(0xFF00B9F1)),
       title: Text(title, style: const TextStyle(color: Colors.white)),
-      subtitle: Text(subtitle, style: const TextStyle(color: Color(0xFFC3C6D1))),
+      subtitle: Text(
+        subtitle,
+        style: const TextStyle(color: Color(0xFFC3C6D1)),
+      ),
     );
   }
 }

@@ -20,8 +20,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'My Splash App',
       debugShowCheckedModeBanner: false,
-      // home : SplashScreen(), // Start with SplashScreen
-      home : ResourceHomePage()
+      home : SplashScreen(), // Start with SplashScreen
+      // home : ResourceHomePage()
     );
   }
 }

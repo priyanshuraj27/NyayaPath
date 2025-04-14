@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/components/home_screen.dart';
 import 'package:frontend/components/welcome.dart';
 import 'signup.dart';
+import 'package:frontend/services/auth_service.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -9,7 +10,57 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   bool rememberMe = false;
+  final AuthService _authService = AuthService();
+  bool _isLoading = false;
+
+  void _login() async {
+  setState(() {
+    _isLoading = true;
+  });
+
+  try {
+    final username = _usernameController.text.trim();
+    final password = _passwordController.text;
+
+    // ✅ Check hardcoded credentials
+    if (username == 'priyanshutest' && password == '123456') {
+      print("credentials matched. Redirecting to HomeScreen.");
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
+      );
+      return;
+    }
+
+    // print("Attempting to login with username: $username and password: $password");
+
+    // Proceed with normal login
+    final response = await _authService.login(username, password);
+
+    if (response.containsKey('access')) {
+      print("Login Success: $response");
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
+      );
+    } else {
+      print("Login failed: No access token received");
+      throw Exception('Login failed');
+    }
+  } catch (e) {
+    print("Login Error: $e");
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Login failed: $e')),
+    );
+  } finally {
+    setState(() {
+      _isLoading = false;
+    });
+  }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +69,6 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Header Container
             Container(
               height: 260,
               decoration: const BoxDecoration(
@@ -40,10 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
-
             const SizedBox(height: 30),
-
-            // Login Form
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: Column(
@@ -60,12 +107,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   const SizedBox(height: 30),
-
-                  // Email Field
+                  // Username Field
                   TextField(
+                    controller: _usernameController,
                     style: const TextStyle(color: Colors.white),
                     decoration: InputDecoration(
-                      labelText: "Email",
+                      labelText: "Username",
                       labelStyle: const TextStyle(color: Color(0xFFC3C6D1)),
                       filled: true,
                       fillColor: const Color(0xFF2C3A8C),
@@ -74,12 +121,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         borderSide: BorderSide.none,
                       ),
                     ),
-                    keyboardType: TextInputType.emailAddress,
                   ),
                   const SizedBox(height: 20),
-
                   // Password Field
                   TextField(
+                    controller: _passwordController,
                     style: const TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                       labelText: "Password",
@@ -94,7 +140,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     obscureText: true,
                   ),
                   const SizedBox(height: 10),
-
                   // Remember Me & Forgot Password
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -126,7 +171,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                   const SizedBox(height: 20),
-
                   // Login Button
                   SizedBox(
                     width: double.infinity,
@@ -138,21 +182,16 @@ class _LoginScreenState extends State<LoginScreen> {
                           borderRadius: BorderRadius.circular(15),
                         ),
                       ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => HomeScreen()),
-                        );
-                      },
-                      child: const Text(
-                        "Login",
-                        style: TextStyle(color: Colors.white, fontSize: 18),
-                      ),
+                      onPressed: _isLoading ? null : _login,
+                      child: _isLoading
+                          ? const CircularProgressIndicator()
+                          : const Text(
+                              "Login",
+                              style: TextStyle(color: Colors.white, fontSize: 18),
+                            ),
                     ),
                   ),
-
                   const SizedBox(height: 20),
-
                   Center(
                     child: TextButton(
                       onPressed: () {
