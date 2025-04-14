@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/AIresponse/screens/app.dart';
 import 'package:frontend/auth/login.dart';
 import 'package:frontend/legalaid/legalaidhome.dart';
 import 'package:frontend/profile/demoprofile.dart';
@@ -100,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           context,
                           iconText: 'Chat icon',
                           label: 'Chat with Legal AI Assistant',
-                          destination: LoginScreen(),
+                          destination: App(),
                         ),
                         _buildGridItem(
                           context,
