@@ -4,6 +4,7 @@ import 'package:frontend/AIresponse/common/common_functions.dart';
 import 'package:frontend/AIresponse/data/questions_data.dart';
 import 'package:frontend/AIresponse/routes/kroutes.dart';
 import 'package:frontend/AIresponse/screens/generate_ai.dart';
+import 'package:frontend/components/home_screen.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
 import 'package:mesh_gradient/mesh_gradient.dart';
 
@@ -94,7 +95,10 @@ class _AppState extends State<App> {
               );
             },
             positionSlideIcon: 0.8,
-            slideIconWidget: const Icon(Icons.arrow_back_ios, color: Colors.white),
+            slideIconWidget: const Icon(
+              Icons.arrow_back_ios,
+              color: Colors.white,
+            ),
             onPageChangeCallback: (int lpage) {
               setState(() => page = lpage);
             },
@@ -105,6 +109,21 @@ class _AppState extends State<App> {
             ignoreUserGestureWhileAnimating: true,
           ),
 
+          /// Back to Home Icon Button
+          Positioned(
+            top: 40,
+            left: 20,
+            child: IconButton(
+              icon: const Icon(Icons.arrow_back, color: Colors.white),
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => HomeScreen()),
+                );
+              },
+            ),
+          ),
+
           /// Tracker Dots
           Positioned(
             bottom: 100,
@@ -112,8 +131,7 @@ class _AppState extends State<App> {
             right: 0,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children:
-                  List<Widget>.generate(questionsData.length, _buildDot),
+              children: List<Widget>.generate(questionsData.length, _buildDot),
             ),
           ),
 

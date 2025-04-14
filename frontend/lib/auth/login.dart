@@ -27,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     // ✅ Check hardcoded credentials
     if (username == 'priyanshutest' && password == '123456') {
-      print("credentials matched. Redirecting to HomeScreen.");
+      // print("credentials matched. Redirecting to HomeScreen.");
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const HomeScreen()),

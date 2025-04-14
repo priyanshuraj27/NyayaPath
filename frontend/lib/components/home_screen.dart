@@ -22,8 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
         context,
         MaterialPageRoute(builder: (_) => ResourceHomePage()),
       );
-    } 
-    else {
+    } else {
       setState(() {
         _selectedIndex = index;
       });
@@ -67,14 +66,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Search Bar
+                    // Full-width Search Bar with centered text
                     Container(
+                      width: double.infinity,
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: TextField(
+                        textAlign: TextAlign.center,
                         decoration: InputDecoration(
                           hintText: 'Search for legal information',
                           hintStyle: const TextStyle(color: Colors.grey),
@@ -88,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     const SizedBox(height: 20),
 
-                    // Grid Menu with Navigation
+                    // Grid Menu with Individual Images
                     GridView.count(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
@@ -99,27 +100,30 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         _buildGridItem(
                           context,
-                          iconText: 'Chat icon',
+                          imagePath: 'assets/images/chat_assistanticon.jpeg',
                           label: 'Chat with Legal AI Assistant',
                           destination: App(),
                         ),
                         _buildGridItem(
                           context,
-                          iconText: 'Legal doc',
+                          imagePath:
+                              'assets/images/simplyfylegaldocumenticon.jpeg',
                           label: 'Simplify Legal Document',
                           destination: LoginScreen(),
                         ),
                         _buildGridItem(
                           context,
-                          iconText: 'Court icon',
+                          imagePath: 'assets/images/trackcaseicon.jpg',
                           label: 'Track Court Case',
                           destination: TrackCourtCasesScreen(),
+                          padding: const EdgeInsets.all(12.0), // 1 point smaller
                         ),
                         _buildGridItem(
                           context,
-                          iconText: 'Aid icon',
+                          imagePath: 'assets/images/findLegalAidIcon.jpg',
                           label: 'Find Legal Aid',
                           destination: LegalAidScreen(),
+                          padding: const EdgeInsets.all(20.0), // 2 points smaller
                         ),
                       ],
                     ),
@@ -173,12 +177,13 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // Grid Item
+  // Grid Item with image and optional padding
   Widget _buildGridItem(
     BuildContext context, {
-    required String iconText,
+    required String imagePath,
     required String label,
     required Widget destination,
+    EdgeInsets padding = EdgeInsets.zero,
   }) {
     return GestureDetector(
       onTap: () {
@@ -190,21 +195,27 @@ class _HomeScreenState extends State<HomeScreen> {
           borderRadius: BorderRadius.circular(12),
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 16.0),
-              child: Text(
-                iconText,
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
+            // Image Section
+            Expanded(
+              flex: 3,
+              child: ClipRRect(
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(12),
+                ),
+                child: Padding(
+                  padding: padding,
+                  child: Image.asset(
+                    imagePath,
+                    fit: BoxFit.contain,
+                    width: double.infinity,
+                  ),
                 ),
               ),
             ),
+            // Label Section
             Container(
-              width: double.infinity,
               decoration: const BoxDecoration(
                 color: Color(0xFF2C3A8C),
                 borderRadius: BorderRadius.vertical(
