@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/AIresponse/screens/app.dart';
-import 'package:frontend/auth/login.dart';
 import 'package:frontend/legalaid/legalaidhome.dart';
 import 'package:frontend/profile/demoprofile.dart';
 import 'package:frontend/resource/resourcehome.dart';
+import 'package:frontend/simplifyLegal/mlchat.dart';
 import 'package:frontend/track_cases/trackhome.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -109,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           imagePath:
                               'assets/images/simplyfylegaldocumenticon.jpeg',
                           label: 'Simplify Legal Document',
-                          destination: LoginScreen(),
+                          destination: ChatScreen(),
                         ),
                         _buildGridItem(
                           context,

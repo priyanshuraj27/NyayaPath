@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/AIresponse/AIhome.dart';
 import 'package:frontend/AIresponse/screens/app.dart';
-import 'package:frontend/aichat/aichatscreen.dart';
 import 'package:frontend/components/splash.dart';
-import 'package:frontend/profile/demoprofile.dart';
-import 'package:frontend/resource/resourcehome.dart';
 import 'package:frontend/AIresponse/providers/q_a_provider.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
