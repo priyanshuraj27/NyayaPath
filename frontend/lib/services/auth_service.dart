@@ -9,6 +9,7 @@ class AuthService {
     String username,
     String password,
     String email,
+    String fullName,
   ) async {
     // Debug print: input data
     // print("📤 Signup Initiated");
@@ -19,7 +20,7 @@ class AuthService {
     try {
       final response = await _dio.post(
         '$baseUrl/signup/',
-        data: {'username': username, 'password': password, 'email': email},
+        data: {'username': username, 'password': password, 'email': email, 'full_name': fullName},
         options: Options(headers: {'Content-Type': 'application/json'}),
       );
 

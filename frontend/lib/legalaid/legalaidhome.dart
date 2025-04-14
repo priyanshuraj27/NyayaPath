@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/components/home_screen.dart';
 import 'package:frontend/legalaid/lawyerscreen.dart';
 
 class LegalAidScreen extends StatefulWidget {
@@ -34,6 +35,17 @@ class _LegalAidScreenState extends State<LegalAidScreen>
       backgroundColor: const Color(0xFF101336),
       appBar: AppBar(
         backgroundColor: const Color(0xFF101336),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>HomeScreen(), 
+              ), // ⬅️ Redirect to HomeScreen
+            );
+          },
+        ),
         title: const Text(
           'Legal Aid',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
@@ -44,12 +56,13 @@ class _LegalAidScreenState extends State<LegalAidScreen>
           labelColor: Colors.white,
           unselectedLabelColor: Colors.white70,
           labelStyle: const TextStyle(
-            fontSize: 15, // Increased font size
+            fontSize: 15,
             fontWeight: FontWeight.w600,
           ),
           tabs: const [Tab(text: 'Get Help'), Tab(text: 'Resources')],
         ),
       ),
+
       body: TabBarView(
         controller: _tabController,
         children: [_buildGetHelpForm(), _buildResources()],

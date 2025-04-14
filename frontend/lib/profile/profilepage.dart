@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/auth/login.dart';
+import 'package:frontend/legalaid/legalaidhome.dart';
 import 'package:frontend/models/user.dart';
 import 'package:frontend/services/auth_service.dart';
 class ProfilePage extends StatelessWidget {
@@ -68,7 +69,10 @@ class ProfilePage extends StatelessWidget {
               label: 'Find Legal Aid',
               color: accentColor,
               onTap: () {
-                // Navigate to Legal Aid Info page
+                Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (context) => LegalAidScreen()),
+                      (route) => false,
+                    );
               },
             ),
             const Divider(height: 40),

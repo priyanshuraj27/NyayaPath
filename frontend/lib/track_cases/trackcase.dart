@@ -15,8 +15,8 @@ class CaseStatusApp extends StatelessWidget {
         primaryColor: Color(0xFF003366),
         scaffoldBackgroundColor: Color(0xFFF5F5F5),
         textTheme: ThemeData.light().textTheme.copyWith(
-          bodyMedium: TextStyle(color: Colors.black87),
-        ),
+              bodyMedium: TextStyle(color: Colors.black87),
+            ),
       ),
       home: CaseStatusScreen(),
     );
@@ -37,34 +37,35 @@ class _CaseStatusScreenState extends State<CaseStatusScreen> {
 
     pdf.addPage(
       pw.Page(
-        build:
-            (pw.Context context) => pw.Padding(
-              padding: pw.EdgeInsets.all(20),
-              child: pw.Column(
-                crossAxisAlignment: pw.CrossAxisAlignment.start,
-                children: [
-                  pw.Text(
-                    "Case Status",
-                    style: pw.TextStyle(
-                      fontSize: 24,
-                      fontWeight: pw.FontWeight.bold,
-                    ),
-                  ),
-                  pw.SizedBox(height: 10),
-                  pw.Text("Petitioner vs Respondent"),
-                  pw.Text("District Court, XYZ"),
-                  pw.SizedBox(height: 10),
-                  pw.Text("Case No: 1000/2023 • Registered On 06-12-2023"),
-                  pw.Text("Last Presented On: 15-12-2023"),
-                  pw.Text("Case Status: WON\nJudges: Hon'ble Mr. Sharma"),
-                  pw.Text("Category: Criminal • Sec 305"),
-                  pw.Text("Petitioner(s): Rakesh Aggarwal"),
-                  pw.Text("Respondent(s): State of XYZ"),
-                  pw.Text("Pet. Advocates: Adv. Mohan"),
-                  pw.Text("Res. Advocates: Adv. Suman"),
-                ],
+        build: (pw.Context context) => pw.Padding(
+          padding: pw.EdgeInsets.all(20),
+          child: pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            children: [
+              pw.Text(
+                "Case Status",
+                style: pw.TextStyle(
+                  fontSize: 24,
+                  fontWeight: pw.FontWeight.bold,
+                ),
               ),
-            ),
+              pw.SizedBox(height: 10),
+              pw.Text("M. Siddiq (D) Thr Lrs vs Mahant Suresh Das & Ors"),
+              pw.Text("Supreme Court of India"),
+              pw.SizedBox(height: 10),
+              pw.Text("Case No: Civil Appeal Nos. 10866–10867/2010"),
+              pw.Text("Last Presented On: 06-08-2019"),
+              pw.Text(
+                  "Case Status: DISPOSED (Verdict: Ram Mandir construction allowed)"),
+              pw.Text("Judges: Hon’ble CJI Ranjan Gogoi and others"),
+              pw.Text("Category: Civil • Land Dispute"),
+              pw.Text("Petitioner(s): M. Siddiq (D) Thr Lrs"),
+              pw.Text("Respondent(s): Mahant Suresh Das & Ors"),
+              pw.Text("Pet. Advocates: Adv. Rajeev Dhavan"),
+              pw.Text("Res. Advocates: Adv. C.S. Vaidyanathan"),
+            ],
+          ),
+        ),
       ),
     );
 
@@ -144,16 +145,15 @@ class _CaseStatusScreenState extends State<CaseStatusScreen> {
                 selectedLanguage = value;
               });
             },
-            itemBuilder:
-                (context) => [
-                  PopupMenuItem(value: 'English', child: Text('English')),
-                  PopupMenuItem(value: 'Hindi', child: Text('हिन्दी')),
-                ],
+            itemBuilder: (context) => [
+              PopupMenuItem(value: 'English', child: Text('English')),
+              PopupMenuItem(value: 'Hindi', child: Text('हिन्दी')),
+            ],
             icon: Icon(Icons.language, color: Colors.white),
           ),
         ],
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -163,18 +163,15 @@ class _CaseStatusScreenState extends State<CaseStatusScreen> {
               color: Colors.white,
               child: ListTile(
                 title: Text(
-                  "Petitioner vs Respondent",
+                  "M. Siddiq (D) Thr Lrs vs Mahant Suresh Das & Ors",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                subtitle: Text("District Court, XYZ"),
+                subtitle: Text("Supreme Court of India"),
               ),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {
-                // View attachment action
-              },
-              child: Text("View Attachments"),
+              onPressed: () {},
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color(0xFF003366),
                 foregroundColor: Colors.white,
@@ -182,12 +179,13 @@ class _CaseStatusScreenState extends State<CaseStatusScreen> {
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
+              child: Text("View Attachments"),
             ),
             const SizedBox(height: 10),
             HorizontalStepper(
-              currentStep: 2,
+              currentStep: 4,
               steps: [
-                'Filling',
+                'Filing',
                 'Hearing',
                 'Arguments',
                 'Judgement Reserved',
@@ -206,54 +204,53 @@ class _CaseStatusScreenState extends State<CaseStatusScreen> {
             const SizedBox(height: 10),
             DetailRow(
               label: selectedLanguage == 'Hindi' ? "मामला संख्या:" : "Case No:",
-              value: "1000/2023 • Registered On 06-12-2023",
+              value: "Civil Appeal Nos. 10866–10867/2010",
+            ),
+            DetailRow(
+              label: selectedLanguage == 'Hindi'
+                  ? "अंतिम प्रस्तुति:"
+                  : "Last Presented On:",
+              value: "06-08-2019",
             ),
             DetailRow(
               label:
-                  selectedLanguage == 'Hindi'
-                      ? "अंतिम प्रस्तुति:"
-                      : "Last Presented On:",
-              value: "15-12-2023",
-            ),
-            DetailRow(
-              label: selectedLanguage == 'Hindi' ? "स्थिति:" : "Case Status:",
-              value: "WON\nJudges: Hon'ble Mr. Sharma",
+                  selectedLanguage == 'Hindi' ? "स्थिति:" : "Case Status:",
+              value:
+                  "DISPOSED (Verdict: Ram Mandir construction allowed)\nJudges: Hon’ble CJI Ranjan Gogoi and others",
             ),
             DetailRow(
               label: selectedLanguage == 'Hindi' ? "श्रेणी:" : "Category:",
-              value: "Criminal • Sec 305",
+              value: "Civil • Land Dispute",
             ),
             DetailRow(
-              label:
-                  selectedLanguage == 'Hindi'
-                      ? "याचिकाकर्ता:"
-                      : "Petitioner(s):",
-              value: "Rakesh Aggarwal",
+              label: selectedLanguage == 'Hindi'
+                  ? "याचिकाकर्ता:"
+                  : "Petitioner(s):",
+              value: "M. Siddiq (D) Thr Lrs",
             ),
             DetailRow(
-              label:
-                  selectedLanguage == 'Hindi' ? "प्रतिवादी:" : "Respondent(s):",
-              value: "State of XYZ",
+              label: selectedLanguage == 'Hindi'
+                  ? "प्रतिवादी:"
+                  : "Respondent(s):",
+              value: "Mahant Suresh Das & Ors",
             ),
             DetailRow(
-              label:
-                  selectedLanguage == 'Hindi'
-                      ? "याचिकाकर्ता के वकील:"
-                      : "Pet. Advocates:",
-              value: "Adv. Mohan",
+              label: selectedLanguage == 'Hindi'
+                  ? "याचिकाकर्ता के वकील:"
+                  : "Pet. Advocates:",
+              value: "Adv. Rajeev Dhavan",
             ),
             DetailRow(
-              label:
-                  selectedLanguage == 'Hindi'
-                      ? "प्रतिवादी के वकील:"
-                      : "Res. Advocates:",
-              value: "Adv. Suman",
+              label: selectedLanguage == 'Hindi'
+                  ? "प्रतिवादी के वकील:"
+                  : "Res. Advocates:",
+              value: "Adv. C.S. Vaidyanathan",
             ),
             const SizedBox(height: 20),
             _subscribeCard(),
             const SizedBox(height: 10),
             _helpCard(),
-            const Spacer(),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

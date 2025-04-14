@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/components/home_screen.dart'; // Import HomeScreen
-import 'package:frontend/services/auth_service.dart'; // Import AuthService
+import 'package:frontend/components/home_screen.dart';
+import 'package:frontend/services/auth_service.dart';
 
 class SignUpScreen extends StatefulWidget {
   @override
@@ -8,62 +8,47 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  // Text editing controllers for capturing input values
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _fullNameController = TextEditingController(); 
   final TextEditingController _roleController = TextEditingController();
 
-  bool _isLoading = false; // For loading state to disable button during request
-  final AuthService _authService = AuthService(); // AuthService instance
+  bool _isLoading = false;
+  final AuthService _authService = AuthService();
 
-  // Function to handle the sign-up
   void _signup() async {
     setState(() {
-      _isLoading = true; // Show loading spinner
+      _isLoading = true;
     });
 
-    // print("Sign-up initiated");
-
     try {
-      // Debugging: Print input data
-      // print("Username: ${_usernameController.text}");
-      // print("Email: ${_emailController.text}");
-      // print("Password: ${_passwordController.text}");
-
       var response = await _authService.signup(
         _usernameController.text,
         _passwordController.text,
         _emailController.text,
+        _fullNameController.text,
       );
 
-      // Debugging: Print response data
-      // print("Signup Response: $response");
-
-      // Show success and navigate to HomeScreen
       if (response != null) {
-        // print("Signup Success: $response");
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => HomeScreen()),
         );
       } else {
-        // print("Signup failed: Response is null");
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Signup failed: Response is null')),
         );
       }
     } catch (e) {
       print("Signup Error: $e");
-      // Show error message if the signup fails
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Signup failed: $e')),
       );
     } finally {
       setState(() {
-        _isLoading = false; // Stop the loading spinner
+        _isLoading = false;
       });
-      // print("Sign-up process completed");
     }
   }
 
@@ -112,6 +97,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
                   const SizedBox(height: 30),
+
+                  // ✅ Full Name Field
+                  TextField(
+                    controller: _fullNameController,
+                    style: const TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                      labelText: "Full Name",
+                      labelStyle: const TextStyle(color: Color(0xFFC3C6D1)),
+                      filled: true,
+                      fillColor: const Color(0xFF2C3A8C),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
 
                   // Username Field
                   TextField(
@@ -166,7 +168,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   const SizedBox(height: 20),
 
-                  // Role Field (optional field for role)
+                  // Role Field
                   TextField(
                     controller: _roleController,
                     style: const TextStyle(color: Colors.white),
@@ -180,7 +182,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         borderSide: BorderSide.none,
                       ),
                     ),
-                    obscureText: false,
                   ),
                   const SizedBox(height: 30),
 
@@ -195,9 +196,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           borderRadius: BorderRadius.circular(15),
                         ),
                       ),
-                      onPressed: _isLoading ? null : _signup,  // Disable button during loading
+                      onPressed: _isLoading ? null : _signup,
                       child: _isLoading
-                          ? CircularProgressIndicator() // Show loader while loading
+                          ? CircularProgressIndicator()
                           : const Text(
                               "Sign Up",
                               style: TextStyle(color: Colors.white, fontSize: 18),
@@ -210,7 +211,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   Center(
                     child: TextButton(
                       onPressed: () {
-                        Navigator.pop(context); // Go back to the login screen
+                        Navigator.pop(context);
                       },
                       child: const Text(
                         "Already have an account? Login",

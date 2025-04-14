@@ -47,7 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
         MaterialPageRoute(builder: (context) => const HomeScreen()),
       );
     } else {
-      print("Login failed: No access token received");
+      // print("Login failed: No access token received");
       throw Exception('Login failed');
     }
   } catch (e) {
