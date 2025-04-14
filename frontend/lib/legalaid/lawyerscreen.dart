@@ -52,6 +52,12 @@ class _LawyerListScreenState extends State<LawyerListScreen> {
       backgroundColor: const Color(0xFF101336),
       appBar: AppBar(
         backgroundColor: const Color(0xFF101336),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         title: const Text(
           'Connect With Lawyers',
           style: TextStyle(color: Colors.white),
@@ -125,7 +131,9 @@ class _LawyerListScreenState extends State<LawyerListScreen> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const LawyerClientChatScreen(),
+                                  builder:
+                                      (context) =>
+                                          const LawyerClientChatScreen(),
                                 ),
                               );
                             },

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/legalaid/legalaidhome.dart';
 import 'package:frontend/track_cases/trackcase.dart';
 
 class TrackCourtCasesScreen extends StatefulWidget {
@@ -34,9 +35,9 @@ class _TrackCourtCasesScreenState extends State<TrackCourtCasesScreen>
   }
 
   void _performSearch() {
-     Navigator.push(
-    context,
-    MaterialPageRoute(builder: (_) => CaseStatusScreen()),
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => CaseStatusScreen()),
     );
     setState(() {
       _hasSearched = true;
@@ -49,6 +50,12 @@ class _TrackCourtCasesScreenState extends State<TrackCourtCasesScreen>
       backgroundColor: const Color(0xFF101336),
       appBar: AppBar(
         backgroundColor: const Color(0xFF101336),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         title: const Text(
           'Track Court Cases',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
@@ -89,14 +96,14 @@ class _TrackCourtCasesScreenState extends State<TrackCourtCasesScreen>
         const SizedBox(height: 20),
         _searchButton(),
         const SizedBox(height: 30),
-          _sectionTitle('Recent Searches'),
-          _recentSearchesList(),
-          const SizedBox(height: 30),
-          _sectionTitle('Need Help?'),
-          _helpCard(),
-          const SizedBox(height: 30),
-          _sectionTitle('Subscribe to Case Updates'),
-          _subscribeCard(),
+        _sectionTitle('Recent Searches'),
+        _recentSearchesList(),
+        const SizedBox(height: 30),
+        _sectionTitle('Need Help?'),
+        _helpCard(),
+        const SizedBox(height: 30),
+        _sectionTitle('Subscribe to Case Updates'),
+        _subscribeCard(),
       ],
     );
   }
@@ -111,13 +118,13 @@ class _TrackCourtCasesScreenState extends State<TrackCourtCasesScreen>
         _dropdown('Select Court'),
         const SizedBox(height: 20),
         _searchButton(),
-          const SizedBox(height: 30),
-          _sectionTitle('Need Help?'),
-          _helpCard(),
-          const SizedBox(height: 30),
-          _sectionTitle('Subscribe to Case Updates'),
-          _subscribeCard(),
-        ],
+        const SizedBox(height: 30),
+        _sectionTitle('Need Help?'),
+        _helpCard(),
+        const SizedBox(height: 30),
+        _sectionTitle('Subscribe to Case Updates'),
+        _subscribeCard(),
+      ],
     );
   }
 
@@ -193,19 +200,18 @@ class _TrackCourtCasesScreenState extends State<TrackCourtCasesScreen>
   }
 
   Widget _searchButton() {
-  return ElevatedButton.icon(
-    onPressed: _performSearch,
-    icon: const Icon(Icons.search),
-    label: const Text('Search Case'),
-    style: ElevatedButton.styleFrom(
-      backgroundColor: const Color(0xFF00B9F1),
-      foregroundColor: Colors.white,
-      minimumSize: const Size(double.infinity, 50),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-    ),
-  );
-}
-
+    return ElevatedButton.icon(
+      onPressed: _performSearch,
+      icon: const Icon(Icons.search),
+      label: const Text('Search Case'),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: const Color(0xFF00B9F1),
+        foregroundColor: Colors.white,
+        minimumSize: const Size(double.infinity, 50),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      ),
+    );
+  }
 
   Widget _sectionTitle(String text) {
     return Text(
@@ -256,7 +262,12 @@ class _TrackCourtCasesScreenState extends State<TrackCourtCasesScreen>
           style: TextStyle(color: Colors.white60),
         ),
         trailing: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => LegalAidScreen()),
+            );
+          },
           child: const Text('Get Help'),
         ),
       ),

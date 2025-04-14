@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/legalaid/legalaidhome.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
-
+import 'package:frontend/components/home_screen.dart';
 void main() => runApp(CaseStatusApp());
 
 class CaseStatusApp extends StatelessWidget {
@@ -15,8 +16,8 @@ class CaseStatusApp extends StatelessWidget {
         primaryColor: Color(0xFF003366),
         scaffoldBackgroundColor: Color(0xFFF5F5F5),
         textTheme: ThemeData.light().textTheme.copyWith(
-              bodyMedium: TextStyle(color: Colors.black87),
-            ),
+          bodyMedium: TextStyle(color: Colors.black87),
+        ),
       ),
       home: CaseStatusScreen(),
     );
@@ -37,35 +38,37 @@ class _CaseStatusScreenState extends State<CaseStatusScreen> {
 
     pdf.addPage(
       pw.Page(
-        build: (pw.Context context) => pw.Padding(
-          padding: pw.EdgeInsets.all(20),
-          child: pw.Column(
-            crossAxisAlignment: pw.CrossAxisAlignment.start,
-            children: [
-              pw.Text(
-                "Case Status",
-                style: pw.TextStyle(
-                  fontSize: 24,
-                  fontWeight: pw.FontWeight.bold,
-                ),
+        build:
+            (pw.Context context) => pw.Padding(
+              padding: pw.EdgeInsets.all(20),
+              child: pw.Column(
+                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                children: [
+                  pw.Text(
+                    "Case Status",
+                    style: pw.TextStyle(
+                      fontSize: 24,
+                      fontWeight: pw.FontWeight.bold,
+                    ),
+                  ),
+                  pw.SizedBox(height: 10),
+                  pw.Text("M. Siddiq (D) Thr Lrs vs Mahant Suresh Das & Ors"),
+                  pw.Text("Supreme Court of India"),
+                  pw.SizedBox(height: 10),
+                  pw.Text("Case No: Civil Appeal Nos. 10866–10867/2010"),
+                  pw.Text("Last Presented On: 06-08-2019"),
+                  pw.Text(
+                    "Case Status: DISPOSED (Verdict: Ram Mandir construction allowed)",
+                  ),
+                  pw.Text("Judges: Hon’ble CJI Ranjan Gogoi and others"),
+                  pw.Text("Category: Civil • Land Dispute"),
+                  pw.Text("Petitioner(s): M. Siddiq (D) Thr Lrs"),
+                  pw.Text("Respondent(s): Mahant Suresh Das & Ors"),
+                  pw.Text("Pet. Advocates: Adv. Rajeev Dhavan"),
+                  pw.Text("Res. Advocates: Adv. C.S. Vaidyanathan"),
+                ],
               ),
-              pw.SizedBox(height: 10),
-              pw.Text("M. Siddiq (D) Thr Lrs vs Mahant Suresh Das & Ors"),
-              pw.Text("Supreme Court of India"),
-              pw.SizedBox(height: 10),
-              pw.Text("Case No: Civil Appeal Nos. 10866–10867/2010"),
-              pw.Text("Last Presented On: 06-08-2019"),
-              pw.Text(
-                  "Case Status: DISPOSED (Verdict: Ram Mandir construction allowed)"),
-              pw.Text("Judges: Hon’ble CJI Ranjan Gogoi and others"),
-              pw.Text("Category: Civil • Land Dispute"),
-              pw.Text("Petitioner(s): M. Siddiq (D) Thr Lrs"),
-              pw.Text("Respondent(s): Mahant Suresh Das & Ors"),
-              pw.Text("Pet. Advocates: Adv. Rajeev Dhavan"),
-              pw.Text("Res. Advocates: Adv. C.S. Vaidyanathan"),
-            ],
-          ),
-        ),
+            ),
       ),
     );
 
@@ -121,7 +124,12 @@ class _CaseStatusScreenState extends State<CaseStatusScreen> {
           style: TextStyle(color: Colors.white60),
         ),
         trailing: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => LegalAidScreen()),
+      );
+          },
           style: ElevatedButton.styleFrom(
             backgroundColor: Color(0xFF00B9F1),
             foregroundColor: Colors.white,
@@ -136,6 +144,12 @@ class _CaseStatusScreenState extends State<CaseStatusScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         title: Text("Case Status", style: TextStyle(color: Colors.white)),
         backgroundColor: Color(0xFF003366),
         actions: [
@@ -145,10 +159,11 @@ class _CaseStatusScreenState extends State<CaseStatusScreen> {
                 selectedLanguage = value;
               });
             },
-            itemBuilder: (context) => [
-              PopupMenuItem(value: 'English', child: Text('English')),
-              PopupMenuItem(value: 'Hindi', child: Text('हिन्दी')),
-            ],
+            itemBuilder:
+                (context) => [
+                  PopupMenuItem(value: 'English', child: Text('English')),
+                  PopupMenuItem(value: 'Hindi', child: Text('हिन्दी')),
+                ],
             icon: Icon(Icons.language, color: Colors.white),
           ),
         ],
@@ -207,14 +222,14 @@ class _CaseStatusScreenState extends State<CaseStatusScreen> {
               value: "Civil Appeal Nos. 10866–10867/2010",
             ),
             DetailRow(
-              label: selectedLanguage == 'Hindi'
-                  ? "अंतिम प्रस्तुति:"
-                  : "Last Presented On:",
+              label:
+                  selectedLanguage == 'Hindi'
+                      ? "अंतिम प्रस्तुति:"
+                      : "Last Presented On:",
               value: "06-08-2019",
             ),
             DetailRow(
-              label:
-                  selectedLanguage == 'Hindi' ? "स्थिति:" : "Case Status:",
+              label: selectedLanguage == 'Hindi' ? "स्थिति:" : "Case Status:",
               value:
                   "DISPOSED (Verdict: Ram Mandir construction allowed)\nJudges: Hon’ble CJI Ranjan Gogoi and others",
             ),
@@ -223,27 +238,29 @@ class _CaseStatusScreenState extends State<CaseStatusScreen> {
               value: "Civil • Land Dispute",
             ),
             DetailRow(
-              label: selectedLanguage == 'Hindi'
-                  ? "याचिकाकर्ता:"
-                  : "Petitioner(s):",
+              label:
+                  selectedLanguage == 'Hindi'
+                      ? "याचिकाकर्ता:"
+                      : "Petitioner(s):",
               value: "M. Siddiq (D) Thr Lrs",
             ),
             DetailRow(
-              label: selectedLanguage == 'Hindi'
-                  ? "प्रतिवादी:"
-                  : "Respondent(s):",
+              label:
+                  selectedLanguage == 'Hindi' ? "प्रतिवादी:" : "Respondent(s):",
               value: "Mahant Suresh Das & Ors",
             ),
             DetailRow(
-              label: selectedLanguage == 'Hindi'
-                  ? "याचिकाकर्ता के वकील:"
-                  : "Pet. Advocates:",
+              label:
+                  selectedLanguage == 'Hindi'
+                      ? "याचिकाकर्ता के वकील:"
+                      : "Pet. Advocates:",
               value: "Adv. Rajeev Dhavan",
             ),
             DetailRow(
-              label: selectedLanguage == 'Hindi'
-                  ? "प्रतिवादी के वकील:"
-                  : "Res. Advocates:",
+              label:
+                  selectedLanguage == 'Hindi'
+                      ? "प्रतिवादी के वकील:"
+                      : "Res. Advocates:",
               value: "Adv. C.S. Vaidyanathan",
             ),
             const SizedBox(height: 20),
@@ -271,7 +288,14 @@ class _CaseStatusScreenState extends State<CaseStatusScreen> {
                 ),
                 const SizedBox(width: 10),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => HomeScreen(),
+                      ),
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFF003366),
                     shape: RoundedRectangleBorder(
