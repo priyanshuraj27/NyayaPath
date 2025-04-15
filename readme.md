@@ -93,5 +93,5 @@ flutter run
 ## Team
 - [Bhuvan Goel](https://github.com/bhuvangoel04) – UI/UX, Backend & AI Integration
 
-Priyanshu Pandey(It's Me) – Flutter Dev
+Priyanshu Pandey(It's Me) – Flutter Dev,Backend & AI integration
 
