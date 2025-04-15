@@ -63,8 +63,10 @@ class _CaseAssignScreenState extends State<CaseAssignScreen>
   @override
   void initState() {
     super.initState();
-    _animationController =
-        AnimationController(duration: Duration(milliseconds: 600), vsync: this);
+    _animationController = AnimationController(
+      duration: Duration(milliseconds: 600),
+      vsync: this,
+    );
   }
 
   void assignCase({String? overrideJudge}) async {
@@ -96,11 +98,14 @@ class _CaseAssignScreenState extends State<CaseAssignScreen>
       return;
     }
 
-    final availableJudges = judges
-        .where((j) =>
-            j['specializations'].contains(selectedCaseType) &&
-            j['available'] == true)
-        .toList();
+    final availableJudges =
+        judges
+            .where(
+              (j) =>
+                  j['specializations'].contains(selectedCaseType) &&
+                  j['available'] == true,
+            )
+            .toList();
 
     availableJudges.sort((a, b) => a['caseload'].compareTo(b['caseload']));
 
@@ -109,9 +114,10 @@ class _CaseAssignScreenState extends State<CaseAssignScreen>
         assignedJudge = availableJudges.first['name'];
         confidenceScore = 0.8 + (1 / (availableJudges.first['caseload'] + 1));
         assignmentHistory.insert(
-            0,
-            "Case $caseNumber → $assignedJudge "
-            "(${(confidenceScore * 100).toInt()}%)");
+          0,
+          "Case $caseNumber → $assignedJudge "
+          "(${(confidenceScore * 100).toInt()}%)",
+        );
       } else {
         assignedJudge = 'No suitable judge available';
       }
@@ -135,81 +141,92 @@ class _CaseAssignScreenState extends State<CaseAssignScreen>
         String localSearchQuery = '';
         bool localShowAvailableOnly = false;
 
-        return StatefulBuilder(builder: (context, modalSetState) {
-          final filteredJudges = judges.where((judge) {
-            final nameMatch = judge['name']
-                .toLowerCase()
-                .contains(localSearchQuery.toLowerCase());
-            final availableMatch =
-                !localShowAvailableOnly || judge['available'] == true;
-            return nameMatch && availableMatch;
-          }).toList();
+        return StatefulBuilder(
+          builder: (context, modalSetState) {
+            final filteredJudges =
+                judges.where((judge) {
+                  final nameMatch = judge['name'].toLowerCase().contains(
+                    localSearchQuery.toLowerCase(),
+                  );
+                  final availableMatch =
+                      !localShowAvailableOnly || judge['available'] == true;
+                  return nameMatch && availableMatch;
+                }).toList();
 
-          return Padding(
-            padding: const EdgeInsets.fromLTRB(12, 16, 12, 24),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TextField(
-                  decoration: InputDecoration(
-                    hintText: "Search judge by name",
-                    hintStyle: TextStyle(color: Colors.white70),
-                    filled: true,
-                    fillColor: Color(0xFF101336),
-                    prefixIcon: Icon(Icons.search, color: Colors.white70),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      borderSide: BorderSide.none,
+            return Padding(
+              padding: const EdgeInsets.fromLTRB(12, 16, 12, 24),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextField(
+                    decoration: InputDecoration(
+                      hintText: "Search judge by name",
+                      hintStyle: TextStyle(color: Colors.white70),
+                      filled: true,
+                      fillColor: Color(0xFF101336),
+                      prefixIcon: Icon(Icons.search, color: Colors.white70),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: BorderSide.none,
+                      ),
                     ),
+                    style: TextStyle(color: Colors.white),
+                    onChanged:
+                        (val) => modalSetState(() {
+                          localSearchQuery = val;
+                        }),
                   ),
-                  style: TextStyle(color: Colors.white),
-                  onChanged: (val) => modalSetState(() {
-                    localSearchQuery = val;
-                  }),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Available Only", style: TextStyle(color: Colors.white)),
-                    Switch(
-                      value: localShowAvailableOnly,
-                      onChanged: (val) =>
-                          modalSetState(() => localShowAvailableOnly = val),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10),
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: filteredJudges.length,
-                  itemBuilder: (context, index) {
-                    final judge = filteredJudges[index];
-                    return ListTile(
-                      onTap: () {
-                        Navigator.pop(context);
-                        assignCase(overrideJudge: judge['name']);
-                      },
-                      leading: CircleAvatar(
-                        backgroundImage: AssetImage(judge['avatarUrl']),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Available Only",
+                        style: TextStyle(color: Colors.white),
                       ),
-                      title: Text(judge['name'],
-                          style: TextStyle(color: Colors.white)),
-                      subtitle: Text(
-                        'Specialties: ${judge['specializations'].join(', ')} | Caseload: ${judge['caseload']}',
-                        style: TextStyle(color: Colors.white70),
+                      Switch(
+                        value: localShowAvailableOnly,
+                        onChanged:
+                            (val) => modalSetState(
+                              () => localShowAvailableOnly = val,
+                            ),
                       ),
-                      trailing: Icon(
-                        Icons.circle,
-                        color: judge['available'] ? Colors.green : Colors.red,
-                        size: 12,
-                      ),
-                    );
-                  },
-                ),
-              ],
-            ),
-          );
-        });
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: filteredJudges.length,
+                    itemBuilder: (context, index) {
+                      final judge = filteredJudges[index];
+                      return ListTile(
+                        onTap: () {
+                          Navigator.pop(context);
+                          assignCase(overrideJudge: judge['name']);
+                        },
+                        leading: CircleAvatar(
+                          backgroundImage: AssetImage(judge['avatarUrl']),
+                        ),
+                        title: Text(
+                          judge['name'],
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        subtitle: Text(
+                          'Specialties: ${judge['specializations'].join(', ')} | Caseload: ${judge['caseload']}',
+                          style: TextStyle(color: Colors.white70),
+                        ),
+                        trailing: Icon(
+                          Icons.circle,
+                          color: judge['available'] ? Colors.green : Colors.red,
+                          size: 12,
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            );
+          },
+        );
       },
     );
   }
@@ -223,30 +240,40 @@ class _CaseAssignScreenState extends State<CaseAssignScreen>
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-              height: 260,
-              decoration: const BoxDecoration(
-                color: Color(0xFF2C3A8C),
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(40),
-                  bottomRight: Radius.circular(40),
-                ),
-              ),
-              child: Center(
-                child: Container(
-                  height: 90,
-                  width: 90,
+            Stack(
+              children: [
+                Container(
+                  height: 260,
                   decoration: const BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.circle,
+                    color: Color(0xFF2C3A8C),
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(40),
+                      bottomRight: Radius.circular(40),
+                    ),
                   ),
-                  child: Icon(
-                    caseIcon,
-                    size: 40,
-                    color: Color(0xFF101336),
+                  child: Center(
+                    child: Container(
+                      height: 90,
+                      width: 90,
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(caseIcon, size: 40, color: Color(0xFF101336)),
+                    ),
                   ),
                 ),
-              ),
+                Positioned(
+                  top: 40,
+                  left: 16,
+                  child: IconButton(
+                    icon: Icon(Icons.arrow_back, color: Colors.white),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 30),
             Padding(
@@ -291,20 +318,26 @@ class _CaseAssignScreenState extends State<CaseAssignScreen>
                       ),
                     ),
                     style: TextStyle(color: Colors.white),
-                    onChanged: (value) =>
-                        setState(() => selectedCaseType = value!),
-                    items: caseIcons.keys
-                        .map((type) => DropdownMenuItem(
-                              value: type,
-                              child: Row(
-                                children: [
-                                  Icon(caseIcons[type], color: Colors.white),
-                                  SizedBox(width: 8),
-                                  Text(type, style: TextStyle(color: Colors.white)),
-                                ],
+                    onChanged:
+                        (value) => setState(() => selectedCaseType = value!),
+                    items:
+                        caseIcons.keys
+                            .map(
+                              (type) => DropdownMenuItem(
+                                value: type,
+                                child: Row(
+                                  children: [
+                                    Icon(caseIcons[type], color: Colors.white),
+                                    SizedBox(width: 8),
+                                    Text(
+                                      type,
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ))
-                        .toList(),
+                            )
+                            .toList(),
                   ),
                   const SizedBox(height: 20),
                   SizedBox(
@@ -318,15 +351,16 @@ class _CaseAssignScreenState extends State<CaseAssignScreen>
                         ),
                       ),
                       onPressed: _isLoading ? null : () => assignCase(),
-                      child: _isLoading
-                          ? CircularProgressIndicator(color: Colors.white)
-                          : Text(
-                              "Assign Case",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
+                      child:
+                          _isLoading
+                              ? CircularProgressIndicator(color: Colors.white)
+                              : Text(
+                                "Assign Case",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
                               ),
-                            ),
                     ),
                   ),
                   const SizedBox(height: 30),
@@ -372,10 +406,12 @@ class _CaseAssignScreenState extends State<CaseAssignScreen>
                               alignment: Alignment.bottomRight,
                               child: TextButton(
                                 onPressed: _showJudgeList,
-                                child: Text("Reassign",
-                                    style: TextStyle(color: Colors.white)),
+                                child: Text(
+                                  "Reassign",
+                                  style: TextStyle(color: Colors.white),
+                                ),
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),

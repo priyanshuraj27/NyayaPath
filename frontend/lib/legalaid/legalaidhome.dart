@@ -59,7 +59,7 @@ class _LegalAidScreenState extends State<LegalAidScreen>
             fontSize: 15,
             fontWeight: FontWeight.w600,
           ),
-          tabs: const [Tab(text: 'Get Help'), Tab(text: 'Resources')],
+          tabs: const [Tab(text: 'Get Help'), Tab(text: 'Community')],
         ),
       ),
 

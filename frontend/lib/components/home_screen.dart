@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/AIresponse/screens/app.dart';
+import 'package:frontend/caseassigner/assignerhome.dart';
 import 'package:frontend/legalaid/legalaidhome.dart';
 import 'package:frontend/profile/demoprofile.dart';
 import 'package:frontend/resource/resourcehome.dart';
@@ -14,7 +15,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 0;
+  final _selectedIndex = 0;
 
   void _onItemTapped(int index) {
     if (index == 2) {
@@ -22,10 +23,21 @@ class _HomeScreenState extends State<HomeScreen> {
         context,
         MaterialPageRoute(builder: (_) => ResourceHomePage()),
       );
-    } else {
-      setState(() {
-        _selectedIndex = index;
-      });
+    }
+    if (index == 1) {
+      Navigator.push(context, MaterialPageRoute(builder: (_) => App()));
+    }
+    if (index == 0) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => const HomeScreen()),
+      );
+    }
+    if (index == 3) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => CaseAssignScreen()),
+      );
     }
   }
 
@@ -177,7 +189,7 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
           BottomNavigationBarItem(icon: Icon(Icons.chat), label: ''),
           BottomNavigationBarItem(icon: Icon(Icons.description), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: ''),
+          BottomNavigationBarItem(icon: Icon(Icons.gavel), label: ''),
         ],
       ),
     );

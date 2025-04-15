@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/AIresponse/screens/app.dart';
+import 'package:frontend/components/home_screen.dart';
 import 'package:frontend/components/splash.dart';
 import 'package:frontend/AIresponse/providers/q_a_provider.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
@@ -32,14 +33,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => QAProvider()),
-      ],
+      providers: [ChangeNotifierProvider(create: (_) => QAProvider())],
       child: MaterialApp(
         title: 'Nyayapath',
         debugShowCheckedModeBanner: false,
         navigatorKey: navigatorKey,
-        home: CaseAssignScreen(), // Start with splash screen
+        home: const SplashScreen(),
         routes: {
           '/ai': (_) => const App(), // Your Gemini AI assistant entry point
         },

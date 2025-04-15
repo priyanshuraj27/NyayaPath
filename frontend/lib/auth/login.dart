@@ -26,8 +26,6 @@ class _LoginScreenState extends State<LoginScreen> {
   try {
     final username = _usernameController.text.trim();
     final password = _passwordController.text;
-
-    // ✅ Check hardcoded credentials
     if (username == 'priyanshutest' && password == '123456') {
       // print("credentials matched. Redirecting to HomeScreen.");
       Navigator.pushReplacement(
