@@ -3,6 +3,7 @@ import 'package:frontend/auth/login.dart';
 import 'package:frontend/legalaid/legalaidhome.dart';
 import 'package:frontend/models/user.dart';
 import 'package:frontend/services/auth_service.dart';
+
 class ProfilePage extends StatelessWidget {
   final User user;
 
@@ -70,9 +71,9 @@ class ProfilePage extends StatelessWidget {
               color: accentColor,
               onTap: () {
                 Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (context) => LegalAidScreen()),
-                      (route) => false,
-                    );
+                  MaterialPageRoute(builder: (context) => LegalAidScreen()),
+                  (route) => false,
+                );
               },
             ),
             const Divider(height: 40),
@@ -94,7 +95,14 @@ class ProfilePage extends StatelessWidget {
                           ),
                           ElevatedButton(
                             child: const Text("Logout"),
-                            onPressed: () => Navigator.pop(context, true),
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const LoginScreen(),
+                                ),
+                              );
+                            },
                           ),
                         ],
                       ),
