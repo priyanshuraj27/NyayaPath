@@ -7,6 +7,8 @@ import 'package:frontend/components/home_screen.dart';
 void main() => runApp(CaseStatusApp());
 
 class CaseStatusApp extends StatelessWidget {
+  const CaseStatusApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -25,6 +27,8 @@ class CaseStatusApp extends StatelessWidget {
 }
 
 class CaseStatusScreen extends StatefulWidget {
+  const CaseStatusScreen({super.key});
+
   @override
   _CaseStatusScreenState createState() => _CaseStatusScreenState();
 }
@@ -322,7 +326,7 @@ class DetailRow extends StatelessWidget {
   final String label;
   final String value;
 
-  const DetailRow({required this.label, required this.value});
+  const DetailRow({super.key, required this.label, required this.value});
 
   @override
   Widget build(BuildContext context) {
@@ -346,7 +350,7 @@ class HorizontalStepper extends StatelessWidget {
   final int currentStep;
   final List<String> steps;
 
-  const HorizontalStepper({required this.currentStep, required this.steps});
+  const HorizontalStepper({super.key, required this.currentStep, required this.steps});
 
   @override
   Widget build(BuildContext context) {
@@ -375,7 +379,7 @@ class HorizontalStepper extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 4),
-                  Container(
+                  SizedBox(
                     width: 70,
                     child: Text(
                       steps[index],

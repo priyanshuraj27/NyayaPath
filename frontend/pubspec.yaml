@@ -51,6 +51,7 @@ dependencies:
   geolocator: ^13.0.1
   flutter_dotenv: ^5.1.0
   firebase_core: ^2.24.2
+  flutter_launcher_icons: ^0.13.1
   # file_picker: ^6.1.1
 
   # speech_to_text: ^6.3.0
@@ -114,3 +115,8 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+flutter_launcher_icons:
+  android: true
+  ios: false
+  image_path: "assets/icon/icon.png"
+  

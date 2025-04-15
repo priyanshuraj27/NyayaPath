@@ -3,7 +3,6 @@ import 'package:frontend/AIresponse/const/kenums.dart';
 import 'package:frontend/AIresponse/const/kstrings.dart';
 import 'package:frontend/AIresponse/models/questions_data_model.dart';
 import 'package:frontend/AIresponse/providers/q_a_provider.dart';
-import 'package:frontend/AIresponse/const/kquestion_ids.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:multi_select_flutter/chip_display/multi_select_chip_display.dart';

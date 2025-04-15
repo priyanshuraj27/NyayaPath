@@ -10,6 +10,8 @@ class DemoProfileLauncher extends StatelessWidget {
     role: 'Advocate',
   );
 
+  DemoProfileLauncher({super.key});
+
   @override
   Widget build(BuildContext context) {
     // Immediately push to profile page

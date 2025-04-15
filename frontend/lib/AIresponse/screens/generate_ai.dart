@@ -1,6 +1,5 @@
 import 'package:frontend/AIresponse/const/ktheme.dart';
 import 'package:frontend/AIresponse/providers/q_a_provider.dart';
-import 'package:frontend/AIresponse/routes/kroutes.dart';
 import 'package:frontend/AIresponse/screens/app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';

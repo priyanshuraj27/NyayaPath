@@ -6,6 +6,8 @@ void main() {
 }
 
 class LanguageSelectorApp extends StatelessWidget {
+  const LanguageSelectorApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,6 +19,8 @@ class LanguageSelectorApp extends StatelessWidget {
 }
 
 class LanguageSelectionScreen extends StatefulWidget {
+  const LanguageSelectionScreen({super.key});
+
   @override
   _LanguageSelectionScreenState createState() =>
       _LanguageSelectionScreenState();

@@ -5,6 +5,7 @@ import 'package:frontend/AIresponse/providers/q_a_provider.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
+import 'package:frontend/caseassigner/assignerhome.dart';
 
 // Global navigator key
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -26,6 +27,8 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -36,7 +39,7 @@ class MyApp extends StatelessWidget {
         title: 'Nyayapath',
         debugShowCheckedModeBanner: false,
         navigatorKey: navigatorKey,
-        home: SplashScreen(), // Start with splash screen
+        home: CaseAssignScreen(), // Start with splash screen
         routes: {
           '/ai': (_) => const App(), // Your Gemini AI assistant entry point
         },

@@ -6,7 +6,7 @@ import 'package:frontend/services/auth_service.dart';
 class ProfilePage extends StatelessWidget {
   final User user;
 
-  const ProfilePage({Key? key, required this.user}) : super(key: key);
+  const ProfilePage({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
