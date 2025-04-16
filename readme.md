@@ -1,6 +1,6 @@
 # Nyayapath
 An AI-powered mobile application designed to simplify and accelerate access to justice. Built during a hackathon, this app helps users understand their legal issues through natural language queries, provides AI-generated summaries of legal texts, and guides them through appropriate legal pathways.
-Download link - https://drive.google.com/drive/u/0/folders/1I5tcbywNqJlJotuqPi23rBOfI4_Nowjo(username-priyanshutest pass-123456)
+Download link - https://drive.google.com/drive/u/0/folders/1I5tcbywNqJlJotuqPi23rBOfI4_Nowjo (username-priyanshutest pass-123456)
 # Problem Statement
 In India, millions of citizens struggle to navigate the complex legal system due to lack of awareness, accessibility, or resources. With courts overburdened and legal processes being slow and confusing, there's a pressing need for a solution that bridges this gap — especially for marginalized communities.
 
