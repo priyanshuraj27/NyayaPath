@@ -28,46 +28,48 @@ Notifications & Personalization: Easier to alert users about case updates or leg
 
 # Features
 
-### Legal Summarizer model optimized for mobile using TFLite
+- Legal Summarizer model optimized for mobile using TFLite
 
-### Query History & Secure Storage
+- Query History & Secure Storage
 
-### Multilingual Support (coming soon)
+- Multilingual Support (coming soon)
 
-### Secure backend with Django API
+- Secure backend with Django API
 
-### Tech Stack
+# Tech Stack
+- Frontend: Flutter
+- Backend: Django REST Framework 
+- AI/ML Models:	TensorFlow Lite (Intent & Summary)
+- Summarization:	Custom trained T5-based model
 
-Component	Tech Used
-Frontend	Flutter
-Backend	Django REST Framework
-AI/ML Models	TensorFlow Lite (Intent & Summary)
-Summarization	Custom trained T5-based model
+# Setup Instructions
 
-## Setup Instructions
-bash
-Copy
-Edit
-# Clone the repo
-git clone https://github.com/yourusername/justice-delivery-app.git
+## Clone the repo
+```git clone https://github.com/yourusername/justice-delivery-app.git```
 
-# Setup virtual environment
+## Setup virtual environment
+```
 python3 -m venv venv
-source venv/bin/activate  # or venv\Scripts\activate on Windows
-
-# Install backend dependencies
-pip install -r requirements.txt
-
-# Run Django server
+#on Linux
+source venv/bin/activate
+#on Windows
+venv\Scripts\activate
+```
+## Run Django server
+The Django server was running on a different PC and flutter app on another to reduce load.
+You can change your IP accordingly for requests to the server.
+Just need to be connected to the same network.
+```
 python manage.py runserver 0.0.0.0:8000
-
-# Flutter setup (frontend folder)
+```
+## Flutter setup (frontend folder)
+```
 cd frontend
 flutter pub get
 flutter run
-
-## Team
+```
+# Team
 - [Bhuvan Goel](https://github.com/bhuvangoel04) – UI/UX, Backend & AI Integration
 
-Priyanshu Pandey(It's Me) – Flutter Dev,Backend & AI integration
+- Priyanshu Pandey(It's Me) – Flutter Dev,Backend & AI integration
 
