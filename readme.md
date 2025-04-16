@@ -27,7 +27,6 @@ Offline capabilities: Potential to support offline queries in future updates.
 Notifications & Personalization: Easier to alert users about case updates or legal awareness drives.
 
 # Features
-### AI-powered Intent Classifier using TensorFlow Lite
 
 ### Legal Summarizer model optimized for mobile using TFLite
 
@@ -44,30 +43,7 @@ Frontend	Flutter
 Backend	Django REST Framework
 AI/ML Models	TensorFlow Lite (Intent & Summary)
 Summarization	Custom trained T5-based model
-Deployment	Hosted on LAN/Local for Hackathon Demo
-Database	SQLite (Dev) / PostgreSQL (Prod)
-## Why This is Needed (Stats)
-India has 4.7 crore pending court cases (as of 2023)
 
-Only 5-10% of Indians have basic legal knowledge
-
-Average time for civil case resolution: 13+ years
-
-Rural users face language barriers, lack of awareness, and poor internet connectivity
-
-## Challenges We Faced
-Integrating TensorFlow Lite models in Django
-
-Handling CSRF issues and cross-device communication
-
-Summarizing large legal documents with limited memory
-
-Model size optimizations for mobile devices
-
-Dynamic IP management during app testing
-
-#Demo
-Add screenshots or GIFs here
 ## Setup Instructions
 bash
 Copy
