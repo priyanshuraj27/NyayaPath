@@ -45,7 +45,7 @@ Notifications & Personalization: Easier to alert users about case updates or leg
 # Setup Instructions
 
 ## Clone the repo
-```git clone https://github.com/yourusername/justice-delivery-app.git```
+```git clone https://github.com/priyanshuraj27/NyayaPath.git```
 
 ## Setup virtual environment
 ```
