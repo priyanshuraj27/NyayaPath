@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    container_name: nyayapath-backend
+    restart: always
+    volumes:
+      - ./backend:/app
+      - backend_static:/app/staticfiles
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=False
+      - SECRET_KEY=change_this_to_a_secure_key_in_production
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py collectstatic --noinput &&
+             gunicorn --bind 0.0.0.0:8000 backend.wsgi:application"
+
+  frontend:
+    build: ./frontend
+    container_name: nyayapath-frontend
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+volumes:
+  backend_static:
