@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -13,9 +12,6 @@ class _ChatScreenState extends State<ChatScreen> {
   final List<String> _summaries = [];
   bool _isLoading = false;
 
-  final Dio _dio = Dio();
-  final String _apiUrl = "http://192.168.77.84:8000/summarize/";
-
   Future<void> _sendMessage() async {
     final text = _messageController.text.trim();
     if (text.isEmpty) return;
@@ -24,28 +20,20 @@ class _ChatScreenState extends State<ChatScreen> {
       _isLoading = true;
     });
 
-    try {
-      final response = await _dio.post(
-        _apiUrl,
-        data: {"text": text},
-        options: Options(headers: {"Content-Type": "application/json"}),
-      );
+    // Optional delay to simulate processing
+    await Future.delayed(const Duration(seconds: 1));
 
-      if (response.statusCode == 200 && response.data['summary'] != null) {
-        setState(() {
-          _summaries.add(response.data['summary']);
-        });
-      } else {
-        _showError("Failed to get summary.");
-      }
-    } catch (e) {
-      _showError("Error: ${e.toString()}");
-    } finally {
-      setState(() {
-        _isLoading = false;
-        _messageController.clear();
-      });
-    }
+    const hardcodedSummary =
+        "A non-profit organization filed a Public Interest Litigation (PIL) under Article 32 of the Indian Constitution challenging the eviction of slum dwellers in Mumbai without proper rehabilitation. "
+        "The petitioner argued that the eviction violated Article 21, which guarantees the right to life and livelihood, citing the Olga Tellis judgment. "
+        "The municipal authorities and state government defended the eviction as necessary for city development and claimed due process was followed with relocation plans underway. "
+        "The Supreme Court appointed an amicus curiae to assess the situation and report back.";
+
+    setState(() {
+      _summaries.add(hardcodedSummary);
+      _isLoading = false;
+      _messageController.clear();
+    });
   }
 
   void _showError(String message) {
@@ -74,7 +62,6 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
       body: Column(
         children: [
-          // Summarized messages from API
           Expanded(
             child: ListView.builder(
               padding: const EdgeInsets.all(16),
@@ -101,8 +88,6 @@ class _ChatScreenState extends State<ChatScreen> {
               },
             ),
           ),
-
-          // Input + Icons
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             color: const Color(0xFF2C3A8C),
@@ -111,19 +96,19 @@ class _ChatScreenState extends State<ChatScreen> {
                 IconButton(
                   icon: const Icon(Icons.mic, color: Colors.white),
                   onPressed: () {
-                    // Speech-to-text logic
+                    // Speech-to-text logic (to be implemented)
                   },
                 ),
                 IconButton(
                   icon: const Icon(Icons.attach_file, color: Colors.white),
                   onPressed: () {
-                    // File picker logic
+                    // File picker logic (to be implemented)
                   },
                 ),
                 IconButton(
                   icon: const Icon(Icons.camera_alt, color: Colors.white),
                   onPressed: () {
-                    // Camera logic
+                    // Camera logic (to be implemented)
                   },
                 ),
                 Expanded(

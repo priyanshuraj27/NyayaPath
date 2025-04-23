@@ -17,10 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from accounts.views import signup, logout, CustomTokenObtainPairView
-
+# from legal_summarizer.summarizer.views import summarize
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('signup/', signup, name='signup'),  # Signup endpoint
     path('login/', CustomTokenObtainPairView.as_view(), name='login'),  # Login with JWT
     path('logout/', logout, name='logout'),  # Logout endpoint
+    # path('summarize/',summarize, name='summarize'),
 ]

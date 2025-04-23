@@ -1,7 +1,31 @@
 import 'package:flutter/material.dart';
 
-class LawyerClientChatScreen extends StatelessWidget {
+class LawyerClientChatScreen extends StatefulWidget {
   const LawyerClientChatScreen({super.key});
+
+  @override
+  State<LawyerClientChatScreen> createState() => _LawyerClientChatScreenState();
+}
+
+class _LawyerClientChatScreenState extends State<LawyerClientChatScreen> {
+  final TextEditingController _controller = TextEditingController();
+  final List<_Message> _messages = [
+    _Message(isMe: false, text: 'Hello, how can I assist you today?'),
+    _Message(
+      isMe: true,
+      text: 'I need help understanding a court notice I received.',
+    ),
+  ];
+
+  void _sendMessage() {
+    final text = _controller.text.trim();
+    if (text.isEmpty) return;
+
+    setState(() {
+      _messages.add(_Message(isMe: true, text: text));
+      _controller.clear();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -11,9 +35,7 @@ class LawyerClientChatScreen extends StatelessWidget {
         backgroundColor: const Color(0xFF101336),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
           'Chat with Lawyer',
@@ -23,33 +45,23 @@ class LawyerClientChatScreen extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.video_call, color: Color(0xFF00B9F1)),
             onPressed: () {
-              // Handle video call action here
+              // Handle video call logic here
             },
           ),
         ],
       ),
-
       body: Column(
         children: [
-          // Chat area
           Expanded(
-            child: ListView(
+            child: ListView.builder(
               padding: const EdgeInsets.all(12),
-              children: const [
-                _ChatBubble(
-                  isMe: false,
-                  message: 'Hello, how can I assist you today?',
-                ),
-                _ChatBubble(
-                  isMe: true,
-                  message:
-                      'I need help understanding a court notice I received.',
-                ),
-              ],
+              itemCount: _messages.length,
+              itemBuilder: (context, index) {
+                final msg = _messages[index];
+                return _ChatBubble(isMe: msg.isMe, message: msg.text);
+              },
             ),
           ),
-
-          // Input field
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             color: const Color(0xFF2C3A8C),
@@ -57,6 +69,7 @@ class LawyerClientChatScreen extends StatelessWidget {
               children: [
                 Expanded(
                   child: TextField(
+                    controller: _controller,
                     style: const TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                       hintText: 'Type a message...',
@@ -76,9 +89,7 @@ class LawyerClientChatScreen extends StatelessWidget {
                 ),
                 IconButton(
                   icon: const Icon(Icons.send, color: Color(0xFF00B9F1)),
-                  onPressed: () {
-                    // Send message logic here
-                  },
+                  onPressed: _sendMessage,
                 ),
               ],
             ),
@@ -89,7 +100,6 @@ class LawyerClientChatScreen extends StatelessWidget {
   }
 }
 
-// Chat bubble widget
 class _ChatBubble extends StatelessWidget {
   final bool isMe;
   final String message;
@@ -112,4 +122,11 @@ class _ChatBubble extends StatelessWidget {
       ),
     );
   }
+}
+
+class _Message {
+  final bool isMe;
+  final String text;
+
+  _Message({required this.isMe, required this.text});
 }
